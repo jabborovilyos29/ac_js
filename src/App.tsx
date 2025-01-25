@@ -1,9 +1,9 @@
+import { AlbumsPage } from "./pages";
+
 function App() {
   return (
     <>
-      <div>
-        <h2>test</h2>
-      </div>
+      <AlbumsPage />
     </>
   );
 }
