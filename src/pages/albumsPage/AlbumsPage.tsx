@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Container } from "@mui/material";
-import { AlbumTags } from "@entities/album/ui/AlbumTags";
-import { PhotoList } from "@entities/photo/ui/PhotoList";
+import { AlbumTags, PhotoList } from "@entities/index";
 
 export const AlbumsPage = () => {
   const [selectedAlbums, setSelectedAlbums] = useState<number[]>([]);

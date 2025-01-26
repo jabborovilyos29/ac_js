@@ -1,17 +1,10 @@
-import React from "react";
 import { Chip, Box } from "@mui/material";
-import { useGetAlbumsQuery } from "../api";
+import { useGetAlbumsQuery } from "../model/api";
+import { AlbumTagsProps } from "../model/types";
 
-type AlbumTagsProps = {
-  selectedAlbums: number[];
-  onChange: (albumIds: number[]) => void;
-};
-
-export const AlbumTags: React.FC<AlbumTagsProps> = ({
-  selectedAlbums,
-  onChange,
-}) => {
-  const { data: albums, isLoading } = useGetAlbumsQuery({});
+export const AlbumTags = (props: AlbumTagsProps) => {
+  const { selectedAlbums, onChange } = props;
+  const { data: albums, isLoading } = useGetAlbumsQuery();
 
   const handleToggleAlbum = (id: number) => {
     if (selectedAlbums.includes(id)) {

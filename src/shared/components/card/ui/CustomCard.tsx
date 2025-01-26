@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 type PostCardProps = {
@@ -8,12 +7,9 @@ type PostCardProps = {
   onClick: () => void;
 };
 
-export const CustomCard: React.FC<PostCardProps> = ({
-  title,
-  body,
-  image,
-  onClick,
-}) => {
+export const CustomCard = (props: PostCardProps) => {
+  const { title, body, image, onClick } = props;
+
   return (
     <Card sx={{ maxWidth: 345, cursor: "pointer" }} onClick={onClick}>
       <CardMedia component="img" height="140" image={image} alt={title} />
