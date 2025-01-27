@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { AlbumTags, PhotoList, SearchBar } from "@features/index";
 import { Container } from "@mui/material";
-import { AlbumTags, PhotoList } from "@entities/index";
+import { useAppSelector } from "@shared/index";
 
 export const AlbumsPage = () => {
-  const [selectedAlbums, setSelectedAlbums] = useState<number[]>([]);
+  const selectedAlbums = useAppSelector((state) => state.albums.selectedAlbums);
 
   return (
     <Container>
-      <AlbumTags selectedAlbums={selectedAlbums} onChange={setSelectedAlbums} />
+      <SearchBar />
+      <AlbumTags />
       <PhotoList albumIds={selectedAlbums} />
     </Container>
   );

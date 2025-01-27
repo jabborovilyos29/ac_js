@@ -1,16 +1,29 @@
 import {
   albumsReducer,
-  filtersReducer,
-  resetFilters,
+  AlbumTags,
+  setSelectedAlbums,
+  toggleAlbum,
+} from "./album";
+import { closeModal, Modal, modalReducer, openModal } from "./modal";
+import {
+  PhotoList,
+  photosReducer,
   setCurrentPage,
   setLimit,
   setSearch,
-  setSelectedAlbums,
+} from "./photo";
+import { SearchBar } from "./searchBar";
+
+export {
   toggleAlbum,
-  toggleTag,
-} from "./album/index";
+  setSelectedAlbums,
+  setSearch,
+  setCurrentPage,
+  setLimit,
+  openModal,
+  closeModal,
+};
 
-export { toggleAlbum, setSelectedAlbums };
-export { setSearch, toggleTag, setCurrentPage, setLimit, resetFilters };
+export { PhotoList, AlbumTags, SearchBar, Modal };
 
-export { filtersReducer, albumsReducer };
+export { albumsReducer, photosReducer, modalReducer };

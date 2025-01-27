@@ -9,15 +9,9 @@ const albumsSlice = createSlice({
   name: "albums",
   initialState,
   reducers: {
-    toggleAlbum: (state, action: PayloadAction<number>) => {
-      const albumId = action.payload;
-      if (state.selectedAlbums.includes(albumId)) {
-        state.selectedAlbums = state.selectedAlbums.filter(
-          (id) => id !== albumId,
-        );
-      } else {
-        state.selectedAlbums.push(albumId);
-      }
+    toggleAlbum: (state, action: PayloadAction<number[]>) => {
+      const albumIds = action.payload;
+      state.selectedAlbums = albumIds;
     },
     setSelectedAlbums: (state, action: PayloadAction<number[]>) => {
       state.selectedAlbums = action.payload;

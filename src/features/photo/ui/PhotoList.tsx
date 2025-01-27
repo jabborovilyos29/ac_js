@@ -1,48 +1,38 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useGetPhotosQuery } from "../model/api";
-import {
-  CustomCard,
-  useAppDispatch,
-  useAppSelector,
-  useDebounce,
-} from "@shared/index";
-import { PhotoListProps } from "../model/types";
-import { toggleTag } from "@features/album/model/slices/filtersSlice";
+import { CustomCard, PhotoListSkeleton, useAppDispatch } from "@shared/index";
+import { useFilteredPhotos } from "../lib";
+import { Modal } from "@features/modal";
+import { openModal } from "@features/index";
 
-export const PhotoList = (props: PhotoListProps) => {
-  const { albumIds } = props;
-
+export const PhotoList = ({ albumIds }: { albumIds: number[] }) => {
   const dispatch = useAppDispatch();
-  const { search, selectedTags, currentPage, limit } = useAppSelector(
-    (state) => state.filters,
-  );
-  const debouncedSearch = useDebounce(search);
-
   const { data: photos, isLoading } = useGetPhotosQuery(albumIds[0], {
     skip: albumIds.length === 0,
   });
 
-  const handleTagClick = (albumId: number) => {
-    dispatch(toggleTag(albumId));
-  };
+  const { paginatedPhotos } = useFilteredPhotos(photos || []);
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading) return <PhotoListSkeleton count={6} />;
 
   return (
-    <Box sx={{ p: 2 }}>
-      <Grid container spacing={2}>
-        {photos?.map((photo: any) => (
-          <Grid key={photo.id} size={{ xs: 12, sm: 6, md: 4 }}>
-            <CustomCard
-              title={photo.title}
-              body={`Album ID: ${photo.albumId}`}
-              image={photo.thumbnailUrl}
-              onClick={() => console.log("Photo clicked:", photo.id)}
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+    <>
+      <Box sx={{ p: 2 }}>
+        <Grid container spacing={2}>
+          {paginatedPhotos?.map((photo) => (
+            <Grid key={photo.id} size={{ xs: 12, sm: 6, md: 4 }}>
+              <CustomCard
+                title={photo.title}
+                body={`Album ID: ${photo.albumId}`}
+                image={photo?.thumbnailUrl}
+                onClick={() => dispatch(openModal(photo.id))}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Modal />
+    </>
   );
 };

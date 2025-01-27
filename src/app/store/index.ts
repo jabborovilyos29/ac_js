@@ -1,11 +1,12 @@
-import { albumsReducer, filtersReducer } from "@features/index";
+import { albumsReducer, modalReducer, photosReducer } from "@features/index";
 import { configureStore } from "@reduxjs/toolkit";
 import { api, apiMiddleware } from "@shared/api/api";
 
 export const store = configureStore({
   reducer: {
-    filters: filtersReducer,
     albums: albumsReducer,
+    photos: photosReducer,
+    modal: modalReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

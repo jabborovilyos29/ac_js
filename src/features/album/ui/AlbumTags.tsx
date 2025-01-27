@@ -1,31 +1,50 @@
-import { Chip, Box } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Checkbox,
+  ListItemText,
+  OutlinedInput,
+  SelectChangeEvent,
+} from "@mui/material";
 import { useGetAlbumsQuery } from "../model/api";
-import { AlbumTagsProps } from "../model/types";
+import { useAlbumTags } from "../lib/index";
+import { AlbumsSkeleton } from "@shared/index";
 
-export const AlbumTags = (props: AlbumTagsProps) => {
-  const { selectedAlbums, onChange } = props;
+export const AlbumTags = () => {
   const { data: albums, isLoading } = useGetAlbumsQuery();
+  const { selectedAlbums, handleToggleAlbum } = useAlbumTags();
 
-  const handleToggleAlbum = (id: number) => {
-    if (selectedAlbums.includes(id)) {
-      onChange(selectedAlbums.filter((albumId) => albumId !== id));
-    } else {
-      onChange([...selectedAlbums, id]);
-    }
-  };
-
-  if (isLoading) return <div>Loading tags...</div>;
+  if (isLoading) return <AlbumsSkeleton />;
 
   return (
-    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-      {albums?.map((album: any) => (
-        <Chip
-          key={album.id}
-          label={album.title}
-          color={selectedAlbums.includes(album.id) ? "primary" : "default"}
-          onClick={() => handleToggleAlbum(album.id)}
-        />
-      ))}
-    </Box>
+    <>
+      <FormControl fullWidth>
+        <InputLabel id="album-select-label">Select Albums</InputLabel>
+        <Select
+          labelId="album-select-label"
+          multiple
+          input={<OutlinedInput label="Select Albums" />}
+          value={selectedAlbums}
+          onChange={(evt: SelectChangeEvent<number[]>) => {
+            handleToggleAlbum(evt.target.value as number[]);
+          }}
+          renderValue={(selected) =>
+            albums
+              ?.filter((album: any) => selected.includes(album.id))
+              .map((album: any) => album.title)
+              .join(", ")
+          }
+        >
+          {albums?.map((album: any) => (
+            <MenuItem key={album.id} value={album.id}>
+              <Checkbox checked={selectedAlbums.includes(album.id)} />
+              <ListItemText primary={album.title} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </>
   );
 };

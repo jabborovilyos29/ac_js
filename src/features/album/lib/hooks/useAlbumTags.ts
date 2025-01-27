@@ -5,8 +5,8 @@ export const useAlbumTags = () => {
   const dispatch = useAppDispatch();
   const selectedAlbums = useAppSelector((state) => state.albums.selectedAlbums);
 
-  const handleToggleAlbum = (id: number) => {
-    dispatch(toggleAlbum(id));
+  const handleToggleAlbum = (albumIds: number[]) => {
+    dispatch(toggleAlbum(albumIds));
   };
 
   return { selectedAlbums, handleToggleAlbum };

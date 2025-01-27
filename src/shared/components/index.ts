@@ -1,3 +1,4 @@
 import { CustomCard } from "./card";
+import { AlbumsSkeleton, PhotoListSkeleton } from "./skeletons";
 
-export { CustomCard };
+export { CustomCard, PhotoListSkeleton, AlbumsSkeleton };
