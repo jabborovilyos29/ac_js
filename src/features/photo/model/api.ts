@@ -11,4 +11,8 @@ export const photoApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetPhotosQuery, useGetPhotoDetailsQuery } = photoApi;
+export const {
+  useGetPhotosQuery,
+  useLazyGetPhotosQuery,
+  useGetPhotoDetailsQuery,
+} = photoApi;

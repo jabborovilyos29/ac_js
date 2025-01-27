@@ -1,18 +1,32 @@
-import { Box } from "@mui/material";
+import { Box, Pagination } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useGetPhotosQuery } from "../model/api";
-import { CustomCard, PhotoListSkeleton, useAppDispatch } from "@shared/index";
+import {
+  CustomCard,
+  PhotoListSkeleton,
+  useAppDispatch,
+  useAppSelector,
+} from "@shared/index";
 import { useFilteredPhotos } from "../lib";
 import { Modal } from "@features/modal";
 import { openModal } from "@features/index";
+import { useState } from "react";
 
-export const PhotoList = ({ albumIds }: { albumIds: number[] }) => {
+const limit = 10;
+
+export const PhotoList = () => {
   const dispatch = useAppDispatch();
-  const { data: photos, isLoading } = useGetPhotosQuery(albumIds[0], {
-    skip: albumIds.length === 0,
-  });
+  const { data: photos, isLoading } = useAppSelector(
+    (state) => state.photos.photos,
+  );
+  const totalPages = Math.ceil((photos?.length || 0) / limit);
 
-  const { paginatedPhotos } = useFilteredPhotos(photos || []);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { paginatedPhotos } = useFilteredPhotos(
+    photos || [],
+    currentPage,
+    limit,
+  );
 
   if (isLoading) return <PhotoListSkeleton count={6} />;
 
@@ -32,6 +46,16 @@ export const PhotoList = ({ albumIds }: { albumIds: number[] }) => {
           ))}
         </Grid>
       </Box>
+      {photos?.length !== 0 && (
+        <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(_, page) => setCurrentPage(page)}
+            color="primary"
+          />
+        </Box>
+      )}
       <Modal />
     </>
   );

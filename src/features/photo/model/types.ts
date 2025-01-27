@@ -4,8 +4,10 @@ type PhotoListProps = {
 
 interface PhotosState {
   search: string;
-  currentPage: number;
-  limit: number;
+  photos: {
+    isLoading: boolean;
+    data: any[];
+  };
 }
 
 export type { PhotoListProps, PhotosState };

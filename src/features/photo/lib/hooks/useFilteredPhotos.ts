@@ -2,16 +2,18 @@ import { useMemo } from "react";
 import { useAppSelector } from "@shared/index";
 import { useDebounce } from "@shared/index";
 
-export const useFilteredPhotos = (photos: any[]) => {
-  const { search, currentPage, limit } = useAppSelector(
-    (state) => state.photos,
-  );
+export const useFilteredPhotos = (
+  photos: any[],
+  currentPage: number,
+  limit: number,
+) => {
+  const { search } = useAppSelector((state) => state.photos);
 
   const debouncedSearch = useDebounce(search);
 
   const filteredPhotos = useMemo(() => {
     return photos?.filter((photo) =>
-      photo.title.toLowerCase().includes(debouncedSearch.toLowerCase()),
+      photo?.title?.toLowerCase().includes(debouncedSearch?.toLowerCase()),
     );
   }, [photos, debouncedSearch]);
 

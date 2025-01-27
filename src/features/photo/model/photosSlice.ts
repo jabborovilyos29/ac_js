@@ -3,8 +3,10 @@ import { PhotosState } from "./types";
 
 const initialState: PhotosState = {
   search: "",
-  currentPage: 1,
-  limit: 12,
+  photos: {
+    isLoading: false,
+    data: [],
+  },
 };
 
 const photosSlice = createSlice({
@@ -14,15 +16,16 @@ const photosSlice = createSlice({
     setSearch(state, action: PayloadAction<string>) {
       state.search = action.payload;
     },
-    setCurrentPage(state, action: PayloadAction<number>) {
-      state.currentPage = action.payload;
+    loadingSwitcher(state, action: PayloadAction<boolean>) {
+      state.photos.isLoading = action.payload;
     },
-    setLimit(state, action: PayloadAction<number>) {
-      state.limit = action.payload;
+    setPhotos(state, action: PayloadAction<any[]>) {
+      console.log(action.payload);
+      state.photos.data = action.payload;
     },
   },
 });
 
-export const { setSearch, setCurrentPage, setLimit } = photosSlice.actions;
+export const { setSearch, setPhotos, loadingSwitcher } = photosSlice.actions;
 
 export default photosSlice.reducer;

@@ -8,9 +8,9 @@ import { closeModal, Modal, modalReducer, openModal } from "./modal";
 import {
   PhotoList,
   photosReducer,
-  setCurrentPage,
-  setLimit,
   setSearch,
+  setPhotos,
+  loadingSwitcher,
 } from "./photo";
 import { SearchBar } from "./searchBar";
 
@@ -18,10 +18,10 @@ export {
   toggleAlbum,
   setSelectedAlbums,
   setSearch,
-  setCurrentPage,
-  setLimit,
   openModal,
+  setPhotos,
   closeModal,
+  loadingSwitcher,
 };
 
 export { PhotoList, AlbumTags, SearchBar, Modal };
