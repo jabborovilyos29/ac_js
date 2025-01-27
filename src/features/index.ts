@@ -13,6 +13,7 @@ import {
   loadingSwitcher,
 } from "./photo";
 import { SearchBar } from "./searchBar";
+import { IPhoto } from "./photo/index";
 
 export {
   toggleAlbum,
@@ -23,6 +24,8 @@ export {
   closeModal,
   loadingSwitcher,
 };
+
+export type { IPhoto };
 
 export { PhotoList, AlbumTags, SearchBar, Modal };
 

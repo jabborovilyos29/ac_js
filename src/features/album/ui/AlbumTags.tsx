@@ -11,6 +11,7 @@ import {
 import { useGetAlbumsQuery } from "../model/api";
 import { useAlbumTags } from "../lib/index";
 import { AlbumsSkeleton } from "@shared/index";
+import { IAlbum } from "../model/types";
 
 export const AlbumTags = () => {
   const { data: albums, isLoading } = useGetAlbumsQuery();
@@ -32,12 +33,12 @@ export const AlbumTags = () => {
           }}
           renderValue={(selected) =>
             albums
-              ?.filter((album: any) => selected.includes(album.id))
-              .map((album: any) => album.title)
+              ?.filter((album: IAlbum) => selected.includes(album.id))
+              .map((album: IAlbum) => album.title)
               .join(", ")
           }
         >
-          {albums?.map((album: any) => (
+          {albums?.map((album: IAlbum) => (
             <MenuItem key={album.id} value={album.id}>
               <Checkbox checked={selectedAlbums.includes(album.id)} />
               <ListItemText primary={album.title} />

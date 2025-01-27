@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PhotosState } from "./types";
+import { IPhoto, PhotosState } from "./types";
 
 const initialState: PhotosState = {
   search: "",
@@ -19,8 +19,7 @@ const photosSlice = createSlice({
     loadingSwitcher(state, action: PayloadAction<boolean>) {
       state.photos.isLoading = action.payload;
     },
-    setPhotos(state, action: PayloadAction<any[]>) {
-      console.log(action.payload);
+    setPhotos(state, action: PayloadAction<IPhoto[]>) {
       state.photos.data = action.payload;
     },
   },

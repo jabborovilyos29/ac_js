@@ -1,5 +1,10 @@
 import { useAppDispatch, useAppSelector } from "@shared/index";
-import { loadingSwitcher, setPhotos, toggleAlbum } from "@features/index";
+import {
+  IPhoto,
+  loadingSwitcher,
+  setPhotos,
+  toggleAlbum,
+} from "@features/index";
 import { useLazyGetPhotosQuery } from "@features/photo/model/api";
 
 export const useAlbumTags = () => {
@@ -14,16 +19,16 @@ export const useAlbumTags = () => {
 
     Promise.all(
       albumIds.map((id) => {
-        const res = trigger(id).unwrap();
+        const res: Promise<Array<IPhoto>> = trigger(id).unwrap();
         return res;
       }),
     )
-      .then((results) => {
-        const result: any[] = [];
-        results.forEach((res) => {
+      .then((results: Array<IPhoto[]>) => {
+        const result: IPhoto[] = [];
+        results.forEach((res: IPhoto[]) => {
           result.push(...res);
-        }),
-          dispatch(setPhotos(result));
+        });
+        dispatch(setPhotos(result));
       })
       .catch((error) => {
         console.error(error);

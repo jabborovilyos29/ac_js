@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { useAppSelector } from "@shared/index";
 import { useDebounce } from "@shared/index";
+import { IPhoto } from "@features/index";
 
 export const useFilteredPhotos = (
-  photos: any[],
+  photos: IPhoto[],
   currentPage: number,
   limit: number,
 ) => {

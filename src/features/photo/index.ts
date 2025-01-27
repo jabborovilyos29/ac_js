@@ -3,7 +3,7 @@ import photosReducer, {
   setPhotos,
   loadingSwitcher,
 } from "./model/photosSlice";
-import { PhotoListProps } from "./model/types";
+import { PhotoListProps, IPhoto } from "./model/types";
 import { PhotoList } from "./ui/PhotoList";
 
 export { PhotoList };
@@ -11,4 +11,4 @@ export { photosReducer };
 
 export { setSearch, setPhotos, loadingSwitcher };
 
-export type { PhotoListProps };
+export type { PhotoListProps, IPhoto };
